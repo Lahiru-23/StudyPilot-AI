@@ -45,6 +45,7 @@ type PlanInsights = {
   unscheduledTasks: number;
   dailyStudyMinutes: number;
   message: string;
+  aiAdvice?: string;
 };
 
 export default function Planner() {
@@ -54,6 +55,7 @@ export default function Planner() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [insights, setInsights] = useState<PlanInsights | null>(null);
+  const [provider, setProvider] = useState('');
 
   async function load() {
     const response = await api.get('/study-plans');
@@ -76,6 +78,7 @@ export default function Planner() {
       });
 
       setInsights(response.data.insights || null);
+    setProvider(response.data.provider || 'rule-based');
       await load();
     } catch (err: any) {
       setError(
@@ -338,7 +341,7 @@ export default function Planner() {
           </button>
 
           <p className="text-center text-xs text-slate-500">
-            Provider-independent smart scheduling • No external AI key required
+           AI-powered study recommendations • Smart scheduling with automatic fallback
           </p>
 
           {/* Features */}
@@ -430,6 +433,70 @@ export default function Planner() {
           <p className="mt-4 rounded-xl bg-emerald-400/5 p-4 text-sm leading-6 text-slate-300">
             {insights.message}
           </p>
+          
+<div className="mt-5 space-y-4">
+
+  {/* AI Provider Status */}
+  <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-violet-400/20 bg-violet-400/5 p-4">
+    <div className="flex items-center gap-3">
+      <div className="rounded-lg bg-violet-400/10 p-2 text-violet-300">
+        <BrainCircuit size={20} />
+      </div>
+      <div>
+        <p className="text-sm font-semibold text-white">
+          AI Study Coach
+        </p>
+        <p className="text-xs text-slate-500">
+          Study plan analysis provider
+        </p>
+      </div>
+    </div>
+
+    <span className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
+      provider === 'gemini'
+        ? 'border border-emerald-400/20 bg-emerald-400/10 text-emerald-300'
+        : 'border border-amber-400/20 bg-amber-400/10 text-amber-300'
+    }`}>
+      {provider === 'gemini' ? 'Gemini AI Active' : 'Rule-Based Fallback'}
+    </span>
+  </div>
+
+  {/* Gemini AI Recommendations */}
+  {insights.aiAdvice ? (
+    <div className="overflow-hidden rounded-2xl border border-violet-400/20 bg-gradient-to-br from-violet-500/10 via-[#111b30] to-cyan-500/5">
+
+      <div className="flex items-center gap-3 border-b border-white/5 p-5">
+        <div className="rounded-xl bg-violet-400/10 p-3 text-violet-300">
+          <Sparkles size={22} />
+        </div>
+
+        <div>
+          <h3 className="font-semibold text-white">
+            Your Personalized AI Study Advice
+          </h3>
+          <p className="mt-1 text-xs text-slate-500">
+            Powered by Google Gemini
+          </p>
+        </div>
+      </div>
+
+      <div className="p-5">
+        <p className="whitespace-pre-line text-sm leading-7 text-slate-300">
+          {insights.aiAdvice}
+        </p>
+      </div>
+    </div>
+  ) : (
+    <div className="rounded-xl border border-amber-400/20 bg-amber-400/5 p-4">
+      <p className="text-sm text-amber-200">
+        AI recommendations are currently unavailable.
+        Your study timetable was generated using the rule-based planner.
+      </p>
+    </div>
+  )}
+
+</div>
+
         </section>
       )}
 
