@@ -9,13 +9,11 @@ import { errorHandler, notFound } from './middleware/errors.js';
 import { connectDatabase } from './config/database.js';
 
 const require = createRequire(import.meta.url);
-const helmetMiddleware = require('helmet') as express.RequestHandler;
-
+const helmet = require('helmet') as () => express.RequestHandler;
 const app = express();
 
 // Security headers
-app.use(helmetMiddleware);
-
+app.use(helmet());
 // CORS configuration
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:5173',
