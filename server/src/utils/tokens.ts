@@ -88,7 +88,7 @@ export function setRefreshCookie(res: Response, token: string) {
   res.cookie('refreshToken', token, {
     httpOnly: true,
     secure: process.env.COOKIE_SECURE === 'true',
-    sameSite: 'lax',
+    sameSite: 'none',
     path: '/api/auth',
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
