@@ -171,6 +171,7 @@ const response = await api.post('/ai/chat', {
         </div>
 
         <button
+         type="button"
           onClick={startNewChat}
           disabled={loading}
           className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm font-medium text-slate-300 transition hover:border-violet-400/30 hover:bg-violet-500/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
@@ -205,6 +206,7 @@ const response = await api.post('/ai/chat', {
           </div>
 
           <button
+            type="button"
             onClick={startNewChat}
             disabled={loading || messages.length === 0}
             title="Clear conversation"
@@ -242,6 +244,7 @@ const response = await api.post('/ai/chat', {
 
                   return (
                     <button
+                      type="button"
                       key={item.title}
                       onClick={() => sendMessage(item.prompt)}
                       disabled={loading}
@@ -322,11 +325,13 @@ const response = await api.post('/ai/chat', {
 
         {/* Error Message */}
         {error && (
-          <div className="mx-5 mb-3 rounded-xl border border-red-500/20 bg-red-500/[0.07] px-4 py-3 text-xs text-red-300 md:mx-7">
-            {error}
-          </div>
-        )}
-
+  <div
+    role="alert"
+    className="mx-5 mb-3 rounded-xl border border-red-500/20 bg-red-500/[0.07] px-4 py-3 text-xs text-red-300 md:mx-7"
+  >
+    {error}
+  </div>
+)}
         {/* Message Composer */}
         <div className="border-t border-white/[0.07] bg-[#0A0F1B]/70 p-4 md:p-5">
 
@@ -334,6 +339,7 @@ const response = await api.post('/ai/chat', {
 
             <textarea
               ref={inputRef}
+              aria-label="Message to StudyPilot AI"
               value={input}
               onChange={(event) => setInput(event.target.value)}
               onKeyDown={handleKeyDown}
@@ -345,6 +351,7 @@ const response = await api.post('/ai/chat', {
             />
 
             <button
+              type="button"
               onClick={() => sendMessage()}
               disabled={!input.trim() || loading}
               aria-label="Send message"

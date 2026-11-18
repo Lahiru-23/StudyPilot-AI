@@ -270,7 +270,10 @@ export default function AuthPage({ mode }: { mode: 'login' | 'register' }) {
               </label>
 
               {error && (
-                <div className="rounded-xl border border-rose-500/20 bg-rose-500/10 p-4 text-sm text-rose-300">
+                <div
+                   role="alert"
+                   className="rounded-xl border border-rose-500/20 bg-rose-500/10 p-4 text-sm text-rose-300"
+                >
                   {error}
                 </div>
               )}

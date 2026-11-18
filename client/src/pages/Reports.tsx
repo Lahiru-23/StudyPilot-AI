@@ -124,7 +124,7 @@ export default function Reports() {
 
   if (error || !report) {
     return (
-      <div className="rounded-3xl border border-red-500/20 bg-[#111827] p-8">
+      <div   role="alert" className="rounded-3xl border border-red-500/20 bg-[#111827] p-8">
         <div className="flex flex-col items-center text-center">
           <div className="rounded-2xl bg-red-500/10 p-4 text-red-300">
             <AlertCircle size={28} />
@@ -136,6 +136,7 @@ export default function Reports() {
             {error || 'No report data available.'}
           </p>
           <button
+            type="button"
             onClick={loadReports}
             className="mt-6 rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-violet-500"
           >
@@ -206,7 +207,7 @@ export default function Reports() {
                 Overall completion
               </p>
               <p className="mt-1 text-3xl font-bold text-white">
-                {report.completionRate}%
+                {completionRate}%
               </p>
             </div>
             <ArrowUpRight className="ml-auto text-emerald-400" size={20} />
@@ -280,7 +281,7 @@ export default function Reports() {
                   COMPLETION RATE
                 </p>
                 <p className="mt-1 text-4xl font-bold text-white">
-                  {report.completionRate}%
+                  {completionRate}%
                 </p>
               </div>
               <span className="text-xs text-slate-500">
@@ -424,6 +425,7 @@ export default function Reports() {
                   <div
                     className="relative w-full max-w-12 overflow-hidden rounded-t-xl bg-gradient-to-t from-violet-700 via-violet-500 to-cyan-400 transition-all duration-500 group-hover:brightness-125"
                     style={{ height: `${height}%` }}
+                    aria-label={`${dayLabel}: ${day.studyHours} study hours`}
                     title={`${day.studyHours} study hours`}
                   >
                     {height > 0 && (

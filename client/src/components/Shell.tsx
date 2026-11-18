@@ -92,6 +92,7 @@ export default function Shell() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={mobileMenuOpen}
+            aria-controls="main-navigation"
             className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-300 transition hover:border-violet-400/30 hover:bg-violet-500/10 hover:text-violet-300 md:hidden"
           >
             {mobileMenuOpen ? <X size={21} /> : <Menu size={21} />}
@@ -99,7 +100,7 @@ export default function Shell() {
         </div>
 
         {/* Navigation */}
-        <div className={`${mobileMenuOpen ? 'block' : 'hidden'} px-4 pb-4 md:block md:px-3 md:pb-0`}>
+        <div id="main-navigation" className={`${mobileMenuOpen ? 'block' : 'hidden'} px-4 pb-4 md:block md:px-3 md:pb-0`}>
 
           <p className="mb-3 hidden px-3 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 md:block">
             Workspace
@@ -198,10 +199,11 @@ export default function Shell() {
           </div>
 
           <button
-            onClick={logout}
-            title="Logout"
-            aria-label="Logout"
-            className="rounded-xl border border-white/[0.06] p-2.5 text-slate-500 transition-all duration-300 hover:border-red-500/20 hover:bg-red-500/10 hover:text-red-400"
+             type="button"
+             onClick={logout}
+             title="Logout"
+             aria-label="Logout"
+             className="rounded-xl border border-white/[0.06] p-2.5 text-slate-500 transition-all duration-300 hover:border-red-500/20 hover:bg-red-500/10 hover:text-red-400"
           >
             <LogOut size={17} />
           </button>

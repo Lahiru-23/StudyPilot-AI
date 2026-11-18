@@ -5,18 +5,18 @@ import * as tasks from '../controllers/task.controller.js';
 import * as reports from '../controllers/report.controller.js';
 import * as study from '../controllers/study.controller.js';
 import * as aiChat from '../controllers/aiChat.controller.js';
+import * as admin from '../controllers/admin.controller.js';
 import { verifyOrigin } from '../middleware/csrf.js';
 import { loginLimiter, registerLimiter } from '../middleware/rateLimiter.js';
-import { requireAuth } from '../middleware/auth.js';
+import { requireAuth, requireRole } from '../middleware/auth.js';
 
 const router = Router();
 router.post('/auth/refresh', verifyOrigin, auth.refresh);
 router.post('/auth/logout', verifyOrigin, auth.logout);
 router.post('/auth/register', registerLimiter, auth.register);
 router.post('/auth/login', loginLimiter, auth.login);
-router.post('/auth/refresh', auth.refresh);
-router.post('/auth/logout', auth.logout);
 router.get('/auth/me', requireAuth, auth.me);
+router.get('/admin/overview', requireAuth, requireRole('admin'), admin.getOverview);
 
 router.use(requireAuth);
 router.post('/ai/chat', aiChat.chat);
