@@ -1,5 +1,11 @@
 
-import rateLimit from 'express-rate-limit';
+import express from 'express';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const rateLimit = require('express-rate-limit').rateLimit as (
+  options: express.RequestHandler extends never ? never : any
+) => express.RequestHandler;
 
 export const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
