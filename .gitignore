@@ -4,3 +4,5 @@ dist/
 *.log
 client/dist/
 server/dist/
+
+*.tsbuildinfo
