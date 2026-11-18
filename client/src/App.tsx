@@ -12,6 +12,7 @@ import Tasks from './pages/Tasks';
 import Sessions from './pages/Sessions';
 import Reports from './pages/Reports';
 import Planner from './pages/Planner';
+import AIChat from './pages/AIChat';
 
 import { api, refreshAccessToken } from './services/api';
 import { setCredentials, clearCredentials } from './features/auth/authSlice';
@@ -77,6 +78,7 @@ function AppRoutes() {
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/sessions" element={<Sessions />} />
         <Route path="/planner" element={<Planner />} />
+        <Route path="/chat" element={<AIChat />} />
         <Route path="/reports" element={<Reports />} />
       </Route>
 

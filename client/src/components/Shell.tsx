@@ -14,7 +14,8 @@ import {
   Zap,
   Command,
   Menu,
-  X
+  X,
+  MessageCircle,
 } from 'lucide-react';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,6 +29,7 @@ const links = [
   { to: '/tasks', label: 'Tasks', icon: NotebookPen },
   { to: '/sessions', label: 'Study Sessions', icon: Timer },
   { to: '/planner', label: 'AI Study Planner', icon: Sparkles },
+  { to: '/chat', label: 'AI Study Assistant', icon: MessageCircle },
   { to: '/reports', label: 'Reports & Analytics', icon: BarChart3 }
 ];
 
