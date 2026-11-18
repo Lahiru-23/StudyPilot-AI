@@ -6,6 +6,7 @@ import helmet from 'helmet';
 
 import routes from './routes/index.js';
 import { errorHandler, notFound } from './middleware/errors.js';
+import { connectDatabase } from './config/database.js';
 
 const app = express();
 
@@ -30,6 +31,16 @@ app.get('/api/health', (_req, res) => {
     success: true,
     message: 'StudyPilot AI API is running'
   });
+});
+
+// MongoDB connection middleware
+app.use('/api', async (_req, _res, next) => {
+  try {
+    await connectDatabase();
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 // API routes
