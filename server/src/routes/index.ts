@@ -4,6 +4,7 @@ import * as subjects from '../controllers/subject.controller.js';
 import * as tasks from '../controllers/task.controller.js';
 import * as reports from '../controllers/report.controller.js';
 import * as study from '../controllers/study.controller.js';
+import * as aiChat from '../controllers/aiChat.controller.js';
 import { verifyOrigin } from '../middleware/csrf.js';
 import { loginLimiter, registerLimiter } from '../middleware/rateLimiter.js';
 import { requireAuth } from '../middleware/auth.js';
@@ -18,6 +19,7 @@ router.post('/auth/logout', auth.logout);
 router.get('/auth/me', requireAuth, auth.me);
 
 router.use(requireAuth);
+router.post('/ai/chat', aiChat.chat);
 router.get('/subjects', subjects.list);
 router.post('/subjects', subjects.create);
 router.get('/subjects/:id', subjects.getOne);
