@@ -1,0 +1,13 @@
+import { useEffect, useState } from 'react';
+import { api } from '../services/api';
+import type { Subject } from '../types';
+export default function Subjects(){
+ const [items,setItems]=useState<Subject[]>([]); const [name,setName]=useState(''); const [code,setCode]=useState(''); const [difficulty,setDifficulty]=useState('medium'); const [error,setError]=useState('');
+ async function load(){try{setItems((await api.get('/subjects')).data.data);}catch{setError('Could not load subjects');}}
+ useEffect(()=>{load();},[]);
+ async function add(e:React.FormEvent){e.preventDefault();setError('');try{await api.post('/subjects',{name,code,difficulty});setName('');setCode('');load();}catch(err:any){setError(err.response?.data?.message||'Could not add subject');}}
+ async function remove(id:string){if(confirm('Delete this subject?')){await api.delete(`/subjects/${id}`);load();}}
+ return <div><h1 className="text-3xl font-bold">Subjects</h1><p className="mt-2 text-slate-400">Organize the subjects you are learning.</p>
+ <form onSubmit={add} className="mt-6 grid gap-3 rounded-2xl border border-white/10 bg-[#111b30] p-5 md:grid-cols-[1fr_140px_150px_auto]"><input required placeholder="Subject name" value={name} onChange={e=>setName(e.target.value)} className="rounded-xl border border-white/10 bg-[#0b1020] px-4 py-3"/><input placeholder="Code (optional)" value={code} onChange={e=>setCode(e.target.value)} className="rounded-xl border border-white/10 bg-[#0b1020] px-4 py-3"/><select value={difficulty} onChange={e=>setDifficulty(e.target.value)} className="rounded-xl border border-white/10 bg-[#0b1020] px-3 py-3"><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select><button className="rounded-xl bg-violet-500 px-5 py-3 font-semibold">Add subject</button></form>
+ {error&&<p className="mt-3 text-sm text-rose-300">{error}</p>}<div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{items.map(s=><div key={s._id} className="rounded-2xl border border-white/10 bg-[#111b30] p-5"><div className="flex items-start justify-between"><div><span className="mb-3 inline-block rounded-full px-3 py-1 text-xs capitalize" style={{backgroundColor:s.color+'22',color:s.color}}>{s.difficulty}</span><h3 className="text-lg font-semibold">{s.name}</h3><p className="mt-1 text-sm text-slate-500">{s.code||'No subject code'}</p></div><button onClick={()=>remove(s._id)} className="text-xs text-rose-300 hover:underline">Delete</button></div></div>)}</div>{!items.length&&<p className="mt-8 text-center text-slate-500">No subjects yet. Add your first subject above.</p>}</div>;
+}
