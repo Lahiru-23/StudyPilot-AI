@@ -2,8 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import helmet from 'helmet';
-
+import * as helmet from 'helmet';
 import routes from './routes/index.js';
 import { errorHandler, notFound } from './middleware/errors.js';
 import { connectDatabase } from './config/database.js';
@@ -11,7 +10,7 @@ import { connectDatabase } from './config/database.js';
 const app = express();
 
 // Security headers
-app.use(helmet());
+app.use(helmet.default());
 
 // CORS configuration
 app.use(cors({
