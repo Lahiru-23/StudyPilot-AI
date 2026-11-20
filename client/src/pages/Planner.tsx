@@ -238,60 +238,69 @@ export default function Planner() {
         <div className="space-y-7 p-5 md:p-6">
           <div className="grid gap-8 md:grid-cols-2">
 
-            {/* Daily hours */}
-            <div>
-              <div className="mb-4 flex items-center justify-between">
-                <label className="text-sm font-medium text-slate-300">
-                  Available study hours per day
-                </label>
-                <span className="rounded-lg border border-violet-400/20 bg-violet-400/10 px-3 py-1.5 text-sm font-semibold text-violet-200">
-                  {hours} {hours === 1 ? 'hour' : 'hours'}
-                </span>
-              </div>
+           {/* Daily hours */}
+<div>
+  <div className="mb-4 flex items-center justify-between">
+    <label
+      htmlFor="study-hours"
+      className="text-sm font-medium text-slate-300"
+    >
+      Available study hours per day
+    </label>
 
-              <input
-                type="range"
-                min="1"
-                max="12"
-                step="1"
-                value={hours}
-                onChange={(event) => setHours(Number(event.target.value))}
-                className="block w-full cursor-pointer accent-violet-500"
-              />
+    <span className="rounded-lg border border-violet-400/20 bg-violet-400/10 px-3 py-1.5 text-sm font-semibold text-violet-200">
+      {hours} {hours === 1 ? 'hour' : 'hours'}
+    </span>
+  </div>
 
-              <div className="mt-2 flex justify-between text-xs text-slate-600">
-                <span>1 hour</span>
-                <span>12 hours</span>
-              </div>
-            </div>
+  <input
+    id="study-hours"
+    type="range"
+    min="1"
+    max="12"
+    step="1"
+    value={hours}
+    onChange={(event) => setHours(Number(event.target.value))}
+    className="block w-full cursor-pointer accent-violet-500"
+  />
 
-            {/* Duration */}
-            <div>
-              <div className="mb-4 flex items-center justify-between">
-                <label className="text-sm font-medium text-slate-300">
-                  Plan duration
-                </label>
-                <span className="rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-3 py-1.5 text-sm font-semibold text-cyan-200">
-                  {days} days
-                </span>
-              </div>
+  <div className="mt-2 flex justify-between text-xs text-slate-600">
+    <span>1 hour</span>
+    <span>12 hours</span>
+  </div>
+</div>
+           {/* Duration */}
+<div>
+  <div className="mb-4 flex items-center justify-between">
+    <label
+      htmlFor="plan-days"
+      className="text-sm font-medium text-slate-300"
+    >
+      Plan duration
+    </label>
 
-              <input
-                type="range"
-                min="1"
-                max="14"
-                step="1"
-                value={days}
-                onChange={(event) => setDays(Number(event.target.value))}
-                className="block w-full cursor-pointer accent-cyan-400"
-              />
+    <span className="rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-3 py-1.5 text-sm font-semibold text-cyan-200">
+      {days} days
+    </span>
+  </div>
 
-              <div className="mt-2 flex justify-between text-xs text-slate-600">
-                <span>1 day</span>
-                <span>14 days</span>
-              </div>
-            </div>
-          </div>
+  <input
+    id="plan-days"
+    type="range"
+    min="1"
+    max="14"
+    step="1"
+    value={days}
+    onChange={(event) => setDays(Number(event.target.value))}
+    className="block w-full cursor-pointer accent-cyan-400"
+  />
+
+  <div className="mt-2 flex justify-between text-xs text-slate-600">
+    <span>1 day</span>
+    <span>14 days</span>
+  </div>
+</div>
+</div>
 
           {/* Configuration preview */}
           <div className="grid gap-3 sm:grid-cols-2">
